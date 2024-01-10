@@ -1,0 +1,15 @@
+/* Style for the sidebar */
+aside {
+    background-color: #555;
+    color: white;
+    padding: 20px;
+    width: 200px;
+}
+
+/* Style for the sidebar links */
+aside a {
+    color: rgba(233, 2, 2, 0.577);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}

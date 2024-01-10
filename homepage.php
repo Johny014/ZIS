@@ -24,7 +24,7 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-$query = "SELECT student_id, first_name, middle_name, last_name FROM studusers";
+$query = "SELECT student_id, first_name, middle_name, last_name, status FROM studusers";
 $result = $mysqli->query($query);
 
 // Close the database connection
@@ -36,52 +36,60 @@ $mysqli->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar.css">
     <title>Homepage</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-    </style>
 </head>
 <body>
-    <h1>Welcome to the Homepage, <?php echo $fullName; ?></h1>
+    <header>
+        <h1>Welcome <?php echo $fullName; ?></h1>
+    </header>
 
-    <!-- Logout form -->
-    <form method="post" action="logout.php">
-        <button type="submit" name="logout">Logout</button>
-    </form>
+    <aside>
+        <!-- Sidebar content goes here -->
+    </aside>
 
-    <h2>Student List</h2>
-    <!-- Display student information in a table -->
-    <table>
-        <thead>
-            <tr>
-                <th>Student ID</th>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th>Last Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
-                echo "<td>{$row['student_id']}</td>";
-                echo "<td>{$row['first_name']}</td>";
-                echo "<td>{$row['middle_name']}</td>";
-                echo "<td>{$row['last_name']}</td>";
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
-    </table>
+    <main>
+        <!-- Logout form -->
+        <form method="post" action="logout.php">
+            <button type="submit" name="logout">Logout</button>
+        </form>
+
+        <h2>Student Info</h2>
+        <!-- Display student information in a table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>{$row['student_id']}</td>";
+                    echo "<td>{$row['first_name']}</td>";
+                    echo "<td>{$row['middle_name']}</td>";
+                    echo "<td>{$row['last_name']}</td>";
+
+                    // Display status with color based on value
+                    if ($row['status'] == 0) {
+                        echo "<td style='color: red;'>INC</td>";
+                    } else {
+                        echo "<td style='color: green;'>Complete</td>";
+                    }
+
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </main>
 
     <script>
         // Disable back button after logout
@@ -91,3 +99,4 @@ $mysqli->close();
     </script>
 </body>
 </html>
+

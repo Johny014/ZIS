@@ -54,7 +54,7 @@ $mysqli->close();
     <h1>Welcome to the Homepage, <?php echo $fullName; ?></h1>
 
     <!-- Logout form -->
-    <form method="post" action="logout.php">
+    <form method="post" action="admin\logout.php">
         <button type="submit" name="logout">Logout</button>
     </form>
 
